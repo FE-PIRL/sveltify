@@ -1,0 +1,139 @@
+@use '../TextField/TextField.scss';
+@use '../Textarea/Textarea.scss';
+
+@import './variables';
+
+.s-input__slot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: inherit;
+  margin-bottom: $input-slot-margin-bottom;
+  color: inherit;
+  border-radius: inherit;
+  transition: $primary-transition;
+}
+
+.s-input__control {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.s-input__details {
+  display: flex;
+  flex: 1 0 auto;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--theme-text-secondary);
+  font-size: 12px;
+
+  & > [slot='messages'] {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: space-between;
+  }
+}
+
+.s-input {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: row;
+  align-items: center;
+  max-width: 100%;
+  font-size: $input-font-size;
+  letter-spacing: $input-letter-spacing;
+  text-align: $input-text-align;
+
+  input {
+    max-height: $input-max-height;
+  }
+
+  input,
+  textarea {
+    color: var(--theme-text-primary);
+
+    &:invalid {
+      box-shadow: none;
+    }
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: var(--theme-text-disabled);
+    }
+  }
+
+  & > {
+    [slot='prepend-outer'],
+    [slot='append-outer'] {
+      display: inline-flex;
+      align-self: flex-start;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+
+    [slot='prepend-outer'] {
+      margin-right: $input-prepend-append-outer-margin;
+    }
+
+    [slot='append-outer'] {
+      margin-left: $input-prepend-append-outer-margin;
+    }
+  }
+
+  .s-icon {
+    display: inline-flex;
+    flex: 1 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: $input-icon-width;
+    min-width: $input-icon-min-width;
+    height: $input-icon-height;
+    user-select: none;
+  }
+
+  label {
+    height: $input-label-height;
+    color: var(--theme-text-secondary);
+    line-height: $input-label-letter-spacing;
+    white-space: nowrap;
+    transition: $primary-transition;
+  }
+
+  &:focus-within {
+    .s-icon {
+      color: inherit;
+    }
+  }
+
+  &.disabled {
+    color: var(--theme-text-disabled);
+    pointer-events: none;
+
+    input,
+    textarea {
+      color: var(--theme-text-disabled);
+    }
+
+    .s-icon {
+      color: var(--theme-icons-inactive);
+    }
+
+    label {
+      color: var(--theme-text-disabled);
+    }
+  }
+
+  &.dense {
+    .s-input__slot {
+      margin-bottom: $input-dense-slot-margin-bottom;
+    }
+  }
+}

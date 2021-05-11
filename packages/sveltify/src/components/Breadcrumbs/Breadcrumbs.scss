@@ -1,0 +1,50 @@
+@import './variables';
+
+.s-breadcrumbs {
+  display: flex;
+  flex: $breadcrumbs-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: $breadcrumbs-margin;
+  padding: $breadcrumbs-padding;
+  list-style-type: none;
+
+  .s-breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+
+    &.disabled {
+      color: var(--theme-text-disabled);
+      pointer-events: none;
+    }
+  }
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    font-size: $breadcrumbs-item-font-size;
+
+    .s-icon {
+      font-size: $breadcrumbs-item-large-font-size;
+    }
+
+    &:nth-child(even) {
+      padding: $breadcrumbs-even-child-padding;
+    }
+
+    &.divider {
+      color: var(--theme-text-disabled);
+    }
+  }
+
+  &.large {
+    li {
+      font-size: $breadcrumbs-item-large-font-size;
+
+      .s-icon {
+        font-size: $breadcrumbs-item-large-font-size;
+      }
+    }
+  }
+}

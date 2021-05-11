@@ -1,0 +1,32 @@
+@import './variables';
+
+.s-avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--s-avatar-size);
+  height: var(--s-avatar-size);
+  overflow: hidden;
+  line-height: normal;
+  text-align: center;
+  vertical-align: middle;
+
+  @include has-theme-bg {
+    color: map-deep-get($material-dark-theme, 'text', 'primary');
+  }
+
+  &:not(.tile) {
+    border-radius: $avatar-border-radius;
+  }
+
+  .s-icon,
+  img,
+  svg {
+    display: inline-flex;
+    width: inherit;
+    height: inherit;
+    color: inherit;
+    border-radius: inherit;
+  }
+}

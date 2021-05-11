@@ -1,0 +1,92 @@
+@import './variables';
+
+.s-card {
+  position: relative;
+  display: block;
+  max-width: 100%;
+  color: var(--theme-text-primary);
+  white-space: $card-white-space;
+  text-decoration: none;
+  overflow-wrap: $card-overflow-wrap;
+  background-color: var(--theme-cards);
+  outline: none;
+  transition-property: box-shadow, opacity;
+
+  &:not(.flat) {
+    @include elevation($card-elevation);
+  }
+
+  &:not(.tile) {
+    border-radius: $card-border-radius;
+  }
+
+  &.outlined {
+    border: $card-outlined-border-width solid rgba(0, 0, 0, 0.12);
+
+    @include elevation(0);
+  }
+
+  &.raised {
+    @include elevation($card-raised-elevation);
+  }
+
+  &.shaped {
+    border-radius: $card-shaped-border-radius;
+  }
+
+  &.hover {
+    cursor: pointer;
+    transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    &:hover,
+    &:focus {
+      @include elevation($card-hover-elevation);
+    }
+  }
+
+  &.link {
+    cursor: pointer;
+
+    .s-chip {
+      cursor: pointer;
+    }
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: currentColor;
+      opacity: 0;
+      transition: 0.2s opacity map-get($transitions, 'fast-in-slow-out');
+      content: '';
+      pointer-events: none;
+    }
+
+    &:focus::before {
+      opacity: $card-link-focus-opacity;
+    }
+  }
+
+  &.disabled {
+    user-select: none;
+    pointer-events: none;
+
+    > *:not(.s-progress-linear) {
+      opacity: $card-disabled-opacity;
+      transition: inherit;
+    }
+  }
+
+  > *:first-child:not(.s-btn):not(.s-chip),
+  > [slot='progress'] + *:not(.s-btn):not(.s-chip) {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+
+  > *:last-child:not(.s-btn):not(.s-chip) {
+    border-bottom-right-radius: inherit;
+    border-bottom-left-radius: inherit;
+  }
+}

@@ -1,0 +1,27 @@
+@import './variables';
+
+.s-menu__wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  [slot='activator'] {
+    width: 100%;
+  }
+}
+
+.s-menu {
+  position: absolute;
+  max-height: $menu-max-height;
+  overflow: auto;
+  background-color: var(--theme-surface);
+  backface-visibility: hidden;
+  contain: content;
+
+  @include elevation($menu-content-elevation);
+
+  &:not(.tile) {
+    border-radius: $menu-content-border-radius;
+  }
+}

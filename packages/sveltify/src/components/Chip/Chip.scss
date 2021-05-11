@@ -1,0 +1,139 @@
+@import './variables';
+
+.s-chip__close {
+  margin-right: $chip-icon-margin-before;
+  margin-left: $chip-icon-margin-after;
+  cursor: pointer;
+
+  .s-icon {
+    max-width: $chip-close-size;
+    max-height: $chip-close-size;
+    font-size: $chip-close-size;
+    user-select: none;
+  }
+
+  &:focus,
+  &:hover,
+  &:active {
+    opacity: 0.72;
+  }
+}
+
+.s-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: $chip-padding;
+  overflow: hidden;
+  color: var(--theme-text-primary);
+  line-height: $chip-line-height;
+  white-space: $chip-white-space;
+  text-decoration: none;
+  vertical-align: middle;
+  border-color: var(--theme-dividers);
+  outline: none;
+  cursor: default;
+  transition-timing-function: $chip-transition-fn;
+  transition-duration: $chip-transition-duration;
+  transition-property: box-shadow, opacity;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    border-radius: inherit;
+    opacity: 0;
+    content: '';
+    pointer-events: none;
+  }
+
+  .s-avatar {
+    width: $chip-avatar-size;
+    min-width: $chip-avatar-size;
+    height: $chip-avatar-size;
+  }
+
+  .s-icon {
+    font-size: $chip-icon-size;
+  }
+
+  & > .s-icon,
+  & > .s-avatar {
+    color: inherit;
+
+    &:first-child {
+      margin-right: $chip-icon-margin-after;
+      margin-left: $chip-icon-margin-before;
+    }
+
+    &:last-child {
+      margin-right: $chip-icon-margin-before;
+      margin-left: $chip-icon-margin-after;
+    }
+  }
+
+  @each $name, $size in $icon-sizes {
+    &.size-#{$name} {
+      height: #{map-get($size, 'height')}px;
+      font-size: #{map-get($size, 'font-size')}px;
+      border-radius: #{map-get($size, 'height') / 2}px;
+    }
+  }
+
+  &:not(.outlined) {
+    @include has-theme-bg {
+      color: map-deep-get($material-dark-theme, 'text', 'primary');
+    }
+  }
+
+  &:not(.selected) {
+    background-color: var(--theme-chips);
+  }
+
+  &.pill {
+    & > .s-avatar {
+      width: $chip-pill-avatar-size;
+      height: $chip-pill-avatar-size;
+
+      &:first-child {
+        margin-left: $chip-pill-avatar-margin-before;
+      }
+
+      &:last-child {
+        margin-right: $chip-pill-avatar-margin-before;
+      }
+    }
+  }
+
+  &.link {
+    cursor: pointer;
+    user-select: none;
+
+    &:active {
+      @include elevation(2);
+    }
+  }
+
+  &.outlined {
+    background: transparent;
+    border: currentColor solid $icon-outlined-border-width;
+
+    &:active::before {
+      opacity: $chip-outlined-active-opacity;
+    }
+  }
+
+  &.label {
+    border-radius: $chip-label-border-radius;
+  }
+
+  &.disabled {
+    opacity: $chip-disabled-opacity;
+    user-select: none;
+    pointer-events: none;
+  }
+}

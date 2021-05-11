@@ -1,0 +1,23 @@
+@import './variables';
+
+.s-card-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: $card-subtitle-padding;
+  font-weight: $card-title-font-weight;
+  font-size: $card-title-font-size;
+  line-height: $card-title-line-height;
+  letter-spacing: $card-title-letter-spacing;
+  word-break: $card-title-word-break;
+
+  + .s-card-subtitle,
+  + .s-card-title {
+    margin-top: $card-title-adjacent-sibling-subtitle-margin-top;
+    padding-top: $card-adjacent-sibling-text-padding-top;
+  }
+
+  + .s-card-subtitle {
+    margin-top: $card-title-adjacent-sibling-subtitle-margin-top;
+  }
+}

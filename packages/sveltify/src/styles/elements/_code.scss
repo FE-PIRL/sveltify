@@ -1,0 +1,20 @@
+@use '../variables' as *;
+
+code,
+kbd {
+  font-weight: $code-kbd-font-weight;
+  font-size: $code-kbd-font-size;
+  border-radius: $code-kbd-border-radius;
+}
+
+code {
+  padding: $code-padding;
+  color: $code-color;
+  background-color: $code-background-color;
+}
+
+kbd {
+  padding: $kbd-padding;
+  color: $kbd-color;
+  background: $kbd-background-color;
+}

@@ -1,0 +1,14 @@
+@import './variables';
+
+.s-card-subtitle {
+  padding: $card-subtitle-padding;
+  color: var(--theme-text-secondary);
+  font-weight: $card-text-font-weight;
+  font-size: $card-text-font-size;
+  line-height: $card-text-line-height;
+  letter-spacing: $card-text-letter-spacing;
+
+  + .s-card-text {
+    padding-top: $card-adjacent-sibling-text-padding-top;
+  }
+}

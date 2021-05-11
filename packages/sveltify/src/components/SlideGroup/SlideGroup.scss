@@ -1,0 +1,41 @@
+@import './variables';
+
+.s-slide-group {
+  display: flex;
+}
+
+.s-slide-group__content {
+  position: relative;
+  display: flex;
+  flex: 1 0 auto;
+  white-space: nowrap;
+  transition: $primary-transition;
+}
+
+.s-slide-group__wrapper {
+  contain: content;
+  display: flex;
+  flex: 1 1 auto;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.s-slide-group__next,
+.s-slide-group__prev {
+  display: flex;
+  flex: 0 1 $slide-group-control-basis;
+  align-items: center;
+  justify-content: center;
+  min-width: $slide-group-control-basis;
+  cursor: pointer;
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+
+    &.hide-disabled-arrows {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+}

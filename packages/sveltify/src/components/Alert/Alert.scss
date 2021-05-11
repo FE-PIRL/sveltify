@@ -1,0 +1,125 @@
+@import './variables';
+
+.s-alert {
+  position: relative;
+  display: block;
+  margin-bottom: $alert-margin;
+  padding: $alert-padding;
+  color: var(--theme-text-primary);
+  font-size: $alert-font-size;
+
+  @include has-theme-bg {
+    color: map-deep-get($material-dark-theme, 'text', 'primary');
+  }
+
+  .s-icon,
+  .s-btn {
+    color: inherit !important;
+  }
+
+  .s-icon {
+    align-self: flex-start;
+  }
+
+  [slot='icon'] {
+    margin-right: $spacer * 4;
+  }
+
+  .s-alert__border {
+    position: absolute;
+    border-style: solid;
+    border-width: $alert-border-width;
+    content: '';
+
+    &.border-left,
+    &.border-right {
+      top: 0;
+      bottom: 0;
+    }
+
+    &.border-bottom,
+    &.border-top {
+      right: 0;
+      left: 0;
+    }
+
+    &.border-left {
+      left: 0;
+      border-top-left-radius: inherit;
+      border-bottom-left-radius: inherit;
+    }
+
+    &.border-right {
+      right: 0;
+      border-top-right-radius: inherit;
+      border-bottom-right-radius: inherit;
+    }
+
+    &.border-top {
+      top: 0;
+      border-top-left-radius: inherit;
+      border-top-right-radius: inherit;
+    }
+
+    &.border-bottom {
+      bottom: 0;
+      border-bottom-right-radius: inherit;
+      border-bottom-left-radius: inherit;
+    }
+  }
+
+  &.dense {
+    padding-top: $alert-padding / 2;
+    padding-bottom: $alert-padding / 2;
+
+    .s-alert__border {
+      border-width: $alert-dense-border-width;
+    }
+  }
+
+  &.outlined {
+    background: transparent;
+    border: $alert-outline;
+  }
+
+  &.text {
+    background: transparent !important;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: currentColor;
+      border-radius: inherit;
+      opacity: 0.12;
+      content: '';
+      pointer-events: none;
+    }
+  }
+
+  &:not(.tile) {
+    border-radius: $alert-border-radius;
+  }
+
+  &.colored-border {
+    @include elevation(2);
+  }
+
+  &:not(.colored-border) {
+    .s-alert__border {
+      opacity: $alert-border-opacity;
+    }
+  }
+}
+
+.s-alert__wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: inherit;
+}
+
+.s-alert__content {
+  flex: 1 1 auto;
+}

@@ -1,0 +1,76 @@
+@import './variables';
+
+.underlay {
+  z-index: 1;
+  stroke: $progress-circular-underlay-stroke;
+}
+
+.overlay {
+  z-index: 2;
+  transition: $progress-circular-overlay-transition;
+  stroke: currentColor;
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.s-progress-circular {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+
+  &.indeterminate {
+    svg {
+      transform-origin: center center;
+      transition: $process-circular-intermediate-svg-transition;
+      animation: $progress-circular-rotate-animation;
+    }
+
+    .overlay {
+      animation: $progress-circular-rotate-dash;
+      stroke-linecap: round;
+      stroke-dasharray: 80, 200;
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+.s-progress-circular__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes progress-circular-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 100, 200;
+    stroke-dashoffset: -15px;
+  }
+
+  100% {
+    stroke-dasharray: 100, 200;
+    stroke-dashoffset: -125px;
+  }
+}
+
+@keyframes progress-circular-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}

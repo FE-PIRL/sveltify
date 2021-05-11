@@ -1,0 +1,109 @@
+<style>
+a {
+  color: inherit;
+}
+
+main {
+  padding-top: 56px;
+}
+
+.navigation-enabled {
+  padding: 56px 256px 0 256px;
+}
+
+</style>
+
+<script>
+import { onMount } from 'svelte';
+import { mdiGithub, mdiDiscord } from '@mdi/js';
+import { MaterialApp, AppBar, Button, Icon } from 'sveltify/src';
+import SiteNavigation from '@/components/navigation/SiteNavigation.svelte';
+import Loading from '@/components/navigation/Loading.svelte';
+import { theme } from '@/util/stores';
+import { mdiMenu, mdiWeatherNight, mdiWeatherSunny } from '@mdi/js';
+
+export let segment;
+
+let sidenav = false;
+let breakpoints = {};
+let mobile = false;
+
+function checkMobile() {
+  mobile = window.matchMedia(breakpoints['md-and-down']).matches;
+}
+
+function toggleTheme() {
+  if ($theme === 'light') theme.set('dark');
+  else theme.set('light');
+}
+
+onMount(() => {
+  theme.set(window.localStorage.getItem('theme') || 'light');
+  const unsubscribe = theme.subscribe((value) => {
+    window.localStorage.setItem('theme', value);
+  });
+
+  import('sveltify/src/utils/breakpoints').then(({ default: data }) => {
+    breakpoints = data;
+    checkMobile();
+  });
+
+  return unsubscribe;
+});
+
+</script>
+
+<svelte:window on:resize="{checkMobile}" />
+
+<svelte:head>
+  <link
+    rel="stylesheet"
+    href="prism/material-light.css"
+    disabled="{$theme === 'dark' ? true : null}" />
+  <link
+    rel="stylesheet"
+    href="prism/material-dark.css"
+    disabled="{$theme === 'light' ? true : null}" />
+</svelte:head>
+
+<MaterialApp theme="{$theme}">
+  <AppBar
+    fixed
+    style="width: 100%;"
+    class="{segment === undefined ? 'primary-color theme--dark' : ''}">
+    <div slot="icon">
+      {#if mobile && segment !== undefined}
+        <Button fab depressed on:click="{() => (sidenav = !sidenav)}" aria-label="Open Menu">
+          <Icon path="{mdiMenu}" />
+        </Button>
+      {/if}
+    </div>
+    <a href="/" slot="title" rel="external" class="text--primary"> Svelte Materialify </a>
+    <div style="flex-grow: 1;"></div>
+    <a href="https://github.com/TheComputerM/sveltify" target="_blank" rel="noopener">
+      <Button class="white-text grey darken-3" aria-label="GitHub" fab="{mobile}">
+        <Icon path="{mdiGithub}" class="{!mobile ? 'mr-3' : ''}" />
+        {#if !mobile}GitHub{/if}
+      </Button>
+    </a>
+    <a href="https://discord.gg/dKGmnhf" target="_blank" rel="noopener">
+      <Button text fab aria-label="Discord">
+        <Icon path="{mdiDiscord}" />
+      </Button>
+    </a>
+    <Button fab text on:click="{toggleTheme}" aria-label="Toggle Theme">
+      <Icon path="{$theme === 'light' ? mdiWeatherNight : mdiWeatherSunny}" />
+    </Button>
+  </AppBar>
+
+  {#if segment !== undefined}
+    <SiteNavigation mobile="{mobile}" bind:sidenav />
+  {/if}
+
+  <main class:navigation-enabled="{!mobile && segment !== undefined}">
+    {#if segment !== undefined}
+      <Loading />
+    {/if}
+    <slot />
+  </main>
+</MaterialApp>

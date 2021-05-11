@@ -1,0 +1,66 @@
+@import './variables';
+
+.s-tab {
+  position: relative;
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: $tabs-item-min-width;
+  max-width: $tabs-item-max-width;
+  padding: $tabs-item-padding;
+  color: inherit;
+  font-weight: $tab-font-weight;
+  font-size: $tab-font-size;
+  line-height: $tab-line-height;
+  letter-spacing: $tabs-item-letter-spacing;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  outline: none;
+  transition: none;
+  user-select: none;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    opacity: 0;
+    transition: $primary-transition;
+    content: '';
+    pointer-events: none;
+  }
+
+  &:hover {
+    &::before {
+      opacity: $tabs-item-hover-opacity;
+    }
+  }
+
+  &.focus-visible {
+    &::before {
+      opacity: $tabs-item-focus-opacity;
+    }
+  }
+
+  &:not(.disabled) {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    opacity: $tab-disabled-opacity;
+    pointer-events: none;
+  }
+
+  &:not(.active) {
+    color: var(--theme-tabs);
+
+    & > .s-btn,
+    & > .s-icon {
+      color: var(--theme-tabs);
+    }
+  }
+}

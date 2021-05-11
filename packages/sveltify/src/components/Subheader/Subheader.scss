@@ -1,0 +1,15 @@
+@import './variables';
+
+.s-subheader {
+  display: flex;
+  align-items: center;
+  height: $subheader-item-single-height;
+  padding: 0 $subheader-right-padding 0 $subheader-left-padding;
+  color: var(--theme-text-secondary);
+  font-weight: map-deep-get($headings, 'body-2', 'weight');
+  font-size: map-deep-get($headings, 'body-2', 'size');
+
+  &.inset {
+    margin-left: $subheader-inset-margin;
+  }
+}

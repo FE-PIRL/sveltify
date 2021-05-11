@@ -1,0 +1,13 @@
+@import './variables';
+
+.s-tbl {
+  display: inline-flex;
+  border-color: $tbl-border-color;
+  border-style: solid;
+  border-width: $tbl-border-width;
+  border-radius: $tbl-border-radius;
+
+  table {
+    border-collapse: collapse;
+  }
+}

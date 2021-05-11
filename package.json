@@ -1,0 +1,27 @@
+{
+  "name": "sveltify",
+  "private": true,
+  "engines": {
+    "yarn": ">=1.22.0"
+  },
+  "scripts": {
+    "api": "lerna run api",
+    "build": "lerna run build",
+    "dev": "lerna run --stream dev",
+    "docs": "lerna run docs",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:format",
+    "lint:js": "eslint packages/sveltify/src --fix --ext .js,.jsx,.ts,.tsx,.svelte",
+    "lint:css": "stylelint --fix \"packages/sveltify/**/*.{less,postcss,css,scss,svelte}\"",
+    "lint:format": "prettier --write  \"./**/*.{js,json,ts,tsx,svelte,css,less,scss,html,md}\"",
+    "release": "lerna publish",
+    "test": "lerna run --stream test"
+  },
+  "devDependencies": {
+    "code-specification-unid": "^1.0.9",
+    "lerna": "^3.22.1",
+    "svelte": "^3.32.1"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

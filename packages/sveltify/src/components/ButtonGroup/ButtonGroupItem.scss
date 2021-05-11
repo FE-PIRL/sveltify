@@ -1,0 +1,23 @@
+@import './variables';
+
+.s-btn-group-item {
+  padding: $btn-group-btn-padding;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 0;
+  opacity: $btn-group-btn-opacity;
+
+  &:first-child {
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+  }
+
+  &:last-child {
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: inherit;
+  }
+
+  &:not(:first-child) {
+    border-left-width: 0;
+  }
+}

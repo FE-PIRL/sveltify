@@ -1,0 +1,114 @@
+@import './variables';
+
+.s-expansion-panel__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: $expansion-panel-header-min-height;
+  padding: $expansion-panel-header-padding;
+  font-size: $expansion-panel-header-font-size;
+  line-height: 1;
+  text-align: left;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  outline: none;
+  transition: min-height $primary-transition;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity $primary-transition;
+    content: '';
+    pointer-events: none;
+  }
+
+  &:hover::before {
+    opacity: 0.04;
+  }
+
+  &.focus-visible::before {
+    opacity: 0.12;
+  }
+}
+
+.s-expansion-panel {
+  position: relative;
+  flex: 1 0 100%;
+  max-width: 100%;
+  color: var(--theme-text-primary);
+  background-color: var(--theme-cards);
+  transition: $primary-transition;
+
+  &:not(:first-child)::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    border-color: var(--theme-dividers);
+    border-top: thin solid;
+    transition: 0.2s border-color map-get($transitions, 'fast-out-slow-in'),
+      0.2s opacity map-get($transitions, 'fast-out-slow-in');
+    content: '';
+  }
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: inherit;
+    content: '';
+
+    @include elevation(2);
+  }
+
+  &.disabled {
+    color: var(--theme-text-disabled);
+  }
+
+  &.disabled,
+  &.readonly {
+    .s-expansion-panel__header {
+      pointer-events: none;
+    }
+  }
+
+  &.active {
+    &:not(:first-child),
+    + .s-expansion-panel {
+      margin-top: $expansion-panel-active-margin;
+
+      &::after {
+        opacity: 0;
+      }
+    }
+
+    > .s-expansion-panel__header {
+      min-height: $expansion-panel-active-header-min-height;
+    }
+  }
+}
+
+.s-expansion-panel__icon {
+  display: inline-flex;
+  margin-top: -4px;
+  margin-bottom: -4px;
+  margin-left: auto;
+  user-select: none;
+}
+
+.s-expansion-panel__content {
+  display: flex;
+  flex: 1 1 auto;
+  max-width: 100%;
+  padding: $expansion-panel-content-padding;
+}

@@ -1,0 +1,8 @@
+__sapper__
+*.config.js
+static
+dist
+Example.svelte
+compiled
+*.d.ts
+packages/docs

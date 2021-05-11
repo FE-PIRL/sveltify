@@ -1,0 +1,164 @@
+@import './variables';
+
+.s-btn {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: none;
+  vertical-align: middle;
+  background-color: var(--theme-app-bar);
+  border-radius: $btn-border-radius;
+  outline: 0;
+  transition-duration: $btn-transition-duration;
+  transition-property: box-shadow, transform, opacity;
+  user-select: none;
+
+  a,
+  .s-icon {
+    color: inherit;
+  }
+
+  .s-btn__content {
+    position: relative;
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+    justify-content: inherit;
+    color: inherit;
+    font-weight: map-deep-get($headings, 'button', 'weight');
+    font-size: inherit;
+    line-height: normal;
+    letter-spacing: map-deep-get($headings, 'button', 'letter-spacing');
+    text-transform: map-deep-get($headings, 'button', 'text-transform');
+  }
+
+  @include elevation(2);
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    color: inherit;
+    background-color: currentColor;
+    border-radius: inherit;
+    opacity: 0;
+    transition: $btn-transition;
+    content: '';
+    pointer-events: none;
+  }
+
+  @each $name, $size in $btn-font-sizes {
+    &.size-#{$name} {
+      font-size: $size;
+    }
+  }
+
+  &:not(.disabled) {
+    &:hover::before {
+      opacity: $btn-hover-opacity;
+    }
+
+    &.active::before {
+      opacity: $btn-active-opacity;
+    }
+
+    &.focus-visible::before {
+      opacity: $btn-focus-opacity;
+    }
+  }
+
+  &:not(.outlined) {
+    @include has-theme-bg {
+      color: map-deep-get($material-dark-theme, 'text', 'primary');
+    }
+  }
+
+  &:not(.icon):not(.s-btn--fab) {
+    @each $name, $size in $btn-sizes {
+      &.size-#{$name} {
+        min-width: #{round($size * 1.777777777777778)}px; // default ratio
+        height: #{$size}px;
+        padding: 0 #{$size / 2.25}px;
+      }
+    }
+  }
+
+  &:not(.disabled):not(.depressed) {
+    will-change: box-shadow;
+  }
+
+  &.block {
+    display: flex;
+    flex: 1 0 auto;
+    min-width: 100% !important;
+    max-width: auto;
+  }
+
+  &.tile {
+    border-radius: 0;
+  }
+
+  &.text {
+    background-color: transparent;
+  }
+
+  &.depressed {
+    box-shadow: none;
+  }
+
+  &.outlined {
+    background-color: transparent !important;
+    border: 1px solid currentColor;
+  }
+
+  &.rounded {
+    border-radius: map-get($rounded, 'pill');
+  }
+
+  &.disabled {
+    color: var(--theme-buttons-disabled);
+    pointer-events: none;
+
+    &:not(.flat):not(.text):not(.outlined) {
+      background-color: var(--theme-buttons-disabled);
+    }
+  }
+
+  &.icon {
+    @each $name, $size in $btn-sizes {
+      &.size-#{$name} {
+        width: #{$size}px;
+        height: #{$size}px;
+      }
+    }
+  }
+
+  &.icon,
+  &.s-btn--fab {
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    border-radius: 50%;
+
+    @each $name, $size in $fab-icon-sizes {
+      &.size-#{$name} .s-icon {
+        font-size: #{$size}px;
+      }
+    }
+  }
+
+  &.s-btn--fab {
+    @each $size, $value in $fab-sizes {
+      &.size-#{$size} {
+        width: #{$value}px;
+        height: #{$value}px;
+      }
+    }
+  }
+}
